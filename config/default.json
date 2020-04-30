@@ -1,0 +1,6 @@
+{
+    "mongoURI": "mongodb+srv://JamesG:Spliffy1@hair-pqxjc.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "secretToken",
+    "githubClientId": "402e96ed14f98d519e58",
+    "githubSecret": "3a47f06904bae6c1b04893cd8af72aa34706c370"
+}
