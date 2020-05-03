@@ -7,7 +7,7 @@ const moment = require('moment');
 
 router.get('/', async (req, res) => {
   try {
-     const appointments = await Appointment.find().sort();
+     const appointments = await Appointment.find().sort({ date: -1 });
 
      let today = new Date();
      let dd = String(today.getDate()).padStart(2, '0');
@@ -31,11 +31,14 @@ router.get('/', async (req, res) => {
       } else if (dateA < dateB) {
         comparison = -1;
       }
-      return comparison;
+      
+      return comparison
     }
 
-     result.sort(compare)
     
+
+     result.sort(compare);
+
      
      res.json(result);
      console.log(today);

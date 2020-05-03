@@ -5,6 +5,7 @@ const AppointmentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    
     phone: {
         type: String,
         required: true

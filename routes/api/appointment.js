@@ -16,22 +16,36 @@ router.post('/',
 
  async (req,res) => {
         
-          let { name, phone, appointmentDate, appointmentTime  } = req.body;
+          let { name, phone, appointmentDate, appointmentTime } = req.body;
           try{ 
               
               appointment = new Appointment({
                   name,
                   phone,
                   appointmentDate,
-                  appointmentTime
+                  appointmentTime,
+                 
               });
               
               let checkDate = await Appointment.findOne({ appointmentDate });
               let checkTime = await Appointment.findOne({ appointmentTime });
               if(checkDate && checkTime){
-                return  res.status(400).json(
-                  {message: "Time slot unavailable, please choose another time that works for you."}
-              )
+                // edit starts here
+                const appointments = await Appointment.find({appointmentDate});
+                const appT = appointments.filter(time => {
+                  if(appointmentTime == time.appointmentTime){
+                    return time.appointmentTime.length;
+                  }
+                })
+                // if 3 stylists work there, adjust accordingly
+                  if(appT.length >= 3){
+                    console.log(appT.length);
+                    return  res.status(400).json(
+                      {message: "Time slot unavailable, please choose another time that works for you."}
+                  )
+                  }
+
+              
               }
               let today = new Date();
               let dd = String(today.getDate()).padStart(2, '0');
