@@ -7,8 +7,9 @@ const User = require('../../models/User');
 const { check, validationResult } = require('express-validator');
 const moment = require('moment');
 const mongodb = require('mongodb');
+const Nexmo = require('nexmo');
 
-
+ 
 //@route  POST api/appointment
 //@desc   Set appointment
 //@access Public
@@ -71,6 +72,25 @@ router.post('/',
               
                await appointment.save();
                res.json('submitted');
+              // nexmo phone number that requires no -
+              let phoneToArray = phone.split('');
+              phoneToArray.splice(3,1);
+              phoneToArray.splice(6,1);
+              let nexNum = phoneToArray.join('');
+              // nexmo replies with standard time not military time
+              let nexTime = moment(appointmentTime ,'HH:mm').format('hh:mma');
+              // nexmo replies with a cleaner looking date
+              let nexDate = moment(appointmentDate, 'YYYY-MM-DD ').format('dddd, MMMM Do YYYY');
+              // send the nexmo text
+              const nexmo = new Nexmo({
+                apiKey: '91d0357e',
+                apiSecret: 'j0CqGLUzqSwtzjuB',
+              });
+              const from = '14084264573';
+              const to = "1" + nexNum;
+              const text = `Hi ${name}, we have recieved your appointment scheduled for ${nexDate} at ${nexTime}, see you then! -Great Clips`;
+              nexmo.message.sendSms(from, to, text);
+
           } catch(err) {
                console.error(err.message);
                res.status(500).send('server error');
