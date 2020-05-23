@@ -6,6 +6,8 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const bcrypt = require('bcryptjs');
 
+//added 5/22
+const User= require('../../models/User');
 
 //@route  Get api/auth
 //@desc   Test route

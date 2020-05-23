@@ -75,4 +75,18 @@ router.get('/', async (req, res) => {
 
 
 
+router.delete('/:id', async (req, res) => {
+    try{
+    await User.findByIdAndRemove({_id: req.params.id })
+    res.status(200).send();
+    res.json({message: "deleted"});
+    }   
+      catch (err) {
+      console.log(err.message);
+      res.status(500).send('server error');
+    }
+  });
+
+
+
 module.exports = router;

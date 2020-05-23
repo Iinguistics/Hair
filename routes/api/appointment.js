@@ -160,7 +160,7 @@ router.put('/:id', async (req, res) => {
     console.log(err.message);
     res.status(500).send('server error');
   }
-})
+});
 
 
 
@@ -174,7 +174,7 @@ router.delete('/:id', async (req, res) => {
     console.log(err.message);
     res.status(500).send('server error');
   }
-})
+});
 
 
 module.exports = router;

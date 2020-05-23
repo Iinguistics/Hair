@@ -23,6 +23,7 @@ app.use('/api/logout', require('./routes/api/logout'));
 app.use('/api/past', require('./routes/api/past'));
 app.use('/api/today', require('./routes/api/today'));
 app.use('/api/future', require('./routes/api/future'));
+app.use('/api/admin', require('./routes/api/admin'));
 
 // Handle production
 if(process.env.NODE_ENV ==='production'){
