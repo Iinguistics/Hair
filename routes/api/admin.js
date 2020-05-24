@@ -12,9 +12,9 @@ router.post('/',
 
  async (req,res) => {
     
-  const {  password  } = req.body;
+  const {  email, password  } = req.body;
   try{
-      let email = "Admin@admin.com"
+      
       let user = await User.findOne({ email });
       if(!user){
         return  res.status(400).json(
@@ -40,10 +40,10 @@ router.post('/',
 
 router.put('/', async (req, res) => {
  
-  const {  password  } = req.body;
+  const { email, password, newPass  } = req.body;
   try{
-      const email = "Admin@admin.com";
-      let user = await User.findOneAndUpdate({ email });
+      
+       let user = await User.findOne({ email });
       if(!user){
         return  res.status(400).json(
             {message: "Invalid Email"}
@@ -59,9 +59,10 @@ router.put('/', async (req, res) => {
      
      const salt = await bcrypt.genSalt(10);
 
-     user.password = await bcrypt.hash(password, salt);
+     user.password = await bcrypt.hash(newPass, salt);
 
      await user.save();
+     res.json({message:'submitted'});
   } catch(err) {
        console.error(err.message);
        res.status(500).send('Server Error');
