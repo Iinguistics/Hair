@@ -88,7 +88,7 @@ router.post('/',
               });
               const from = '14084264573';
               const to = "1" + nexNum;
-              const text = `Hi ${name}, we have recieved your appointment scheduled for ${nexDate} at ${nexTime}, see you then! -Great Clips`;
+              const text = `Hi ${name}, we have recieved your appointment scheduled for ${nexDate} at ${nexTime}, see you then! -Company Name`;
               nexmo.message.sendSms(from, to, text);
 
           } catch(err) {
